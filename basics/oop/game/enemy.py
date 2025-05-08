@@ -1,13 +1,11 @@
 '''This is the Enemy Class with the Enemy State and methods'''
 
-class Enemy_alien:
-    def __init__(self, the_name: str, health_points: int = 10, eyes :int =2, 
+class Enemy:
+    def __init__(self, health_points: int = 10, 
                 attack_speed : str ='medium',attack_damage : int = 1,
                 type_of_enemy :str = 'Lizard'
                 ):
-        self.the_name = the_name
         self.health_points = health_points
-        self.eyes = eyes
         self.attack_speed = attack_speed
         self.attack_damage = attack_damage
         self.__type_of_enemy = type_of_enemy
