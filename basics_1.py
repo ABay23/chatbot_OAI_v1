@@ -19,3 +19,8 @@ def purchasing(money: int, price: int, tax: float)-> float:
     print(f'Your total after purchasin is {total}, you have {money} in your account.')
     
 purchasing(bank, item, tax)
+
+'''This is a format string method'''
+name = 'Alejandro'
+sentence = 'Hi {}'
+print(sentence.format(name))
