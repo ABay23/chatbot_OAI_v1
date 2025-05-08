@@ -50,3 +50,13 @@ while i < 6:
         # break
 else:
     print('i is now larger or equal to 6')
+    
+'''Dictionaries'''
+my_vehicle = {
+    "model": "Ford",
+    "make": "Explorer",
+    "year": 2018,
+    "mileage": 40000
+}
+for key, value in my_vehicle.items():
+    print(f'The key: {key} and the value: {value},')
