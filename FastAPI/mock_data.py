@@ -59,3 +59,11 @@ BOOKS: list[dict[str, str]] = [
     {'title': 'And Then There Were None', 'author': 'Agatha Christie', 'category': 'Mystery'}
 ]
 
+def categories(books):
+    categories = set()
+    for book in books:
+        if book['category'] not in categories:
+            categories.add(book['category'])
+    return categories
+
+print(categories(BOOKS))
