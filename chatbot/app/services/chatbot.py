@@ -6,23 +6,20 @@ load_dotenv()
 
 api_key = os.getenv('OPEN_AI_KEY')
 
-
-
 client =  OpenAI(api_key= api_key)
 
-response  = client.responses.create(
+
+
+response = client.chat.completions.create(
     model='gpt-4o-mini',
-    # instructions='Talk like a pirate', #* You can leave this one out and work on roles using input
-    input=[
-        {
-            'role': 'developer',
-            'content': 'talks like Yoda from Star Wars'
-        },
-        {
-            'role': 'user',
-            'content': 'Are nested dictionaries efficient?',          
-        }
-    ]
+    messages=[{
+        'role': 'system',
+        'content': 'You are a helpful assistant'
+    },{
+        'role': 'user',
+        'content': 'Write me a 4 lines bio'
+    }],
+    temperature=0.8
 )
 
-print(response.output_text)
+print(response.choices[0].message.content)
