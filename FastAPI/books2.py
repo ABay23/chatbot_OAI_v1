@@ -52,3 +52,15 @@ async def update_book(updated_book = Body()):
         raise HTTPException(status_code=404, detail='Book Not found')
     except AttributeError as e:
         raise HTTPException(status_code=400, detail=f'Bad Request Format: {str(e)}')
+    
+# * Delete a book with DELETE request
+@app.delete("/books/delete_book/{book_title}")
+async def delete_book(book_title : str):
+    try:
+        for i in range(len(BOOKS)):
+            if BOOKS[i].get('title').casefold() == book_title.casefold():
+                BOOKS.pop(i)
+                return {'Message': 'Book Successfully deleted!'}
+        raise HTTPException(status_code=404, detail = f'Book Not Found')
+    except AttributeError as e:
+        raise HTTPException(status_code=400, detail = f'Bad Request Format: {str(e)}')
