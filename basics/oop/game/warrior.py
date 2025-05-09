@@ -1,5 +1,5 @@
 '''Warrior class from enemy class'''
-from enemy import *
+from Enemy import *
 
 class Warrior(Enemy):
     def __init__(self, health_points, attack_speed ,attack_damage):
@@ -8,3 +8,6 @@ class Warrior(Enemy):
         
     def enemy_talk(self):
         print(f'Warrions are the best!')
+        
+    def attack(self):
+            print(f'Enemy {self.get_type_of_enemy()} attack with the power of an axe and {self.attack_damage} damage!')
