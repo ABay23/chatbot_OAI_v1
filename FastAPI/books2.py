@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import Body, HTTPException, FastAPI
 from mock_data import BOOKS
 
 app = FastAPI()
@@ -32,3 +32,23 @@ async def read_author_category_by_query(book_category: str, book_author : str):
             book.get('category').casefold() == book_category.casefold():
                 books_return.append(book)
     return books_return
+
+
+# * New Book with POST Request
+@app.post('/books/create_book')
+async def create_new_book(new_book = Body()):
+    if new_book['title'] not in BOOKS:
+        BOOKS.append(new_book)
+        
+# * Update a book with PUT Request
+@app.put("/books/update_book")
+async def update_book(updated_book = Body()):
+    try:
+        for i in range(len(BOOKS)):
+                if BOOKS[i].get('title').casefold() == updated_book.get('title').casefold():
+                    BOOKS[i] = updated_book
+                    return {'message': 'Book Updated!'}
+        '''Raise exceptions using FastAPI docs'''
+        raise HTTPException(status_code=404, detail='Book Not found')
+    except AttributeError as e:
+        raise HTTPException(status_code=400, detail=f'Bad Request Format: {str(e)}')
