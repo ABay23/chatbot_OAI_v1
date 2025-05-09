@@ -1,0 +1,10 @@
+chatbotenv/
+.env
+
+# Bytecode
+__pycache__/
+*.py[cod]
+
+# VSCode, Mac, and env files
+.vscode/
+.DS_Store
