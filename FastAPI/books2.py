@@ -7,6 +7,15 @@ app = FastAPI()
 async def read_all_books():
     return BOOKS
 
+# * CH Fetch all books by author
+@app.get('/books/{book_author}')
+async def get_all_books_author(book_author : str):
+        books_returned = []
+        for book in BOOKS:
+            if book.get('author').casefold() == book_author.casefold():
+                books_returned.append(book)
+        return books_returned
+
 
 @app.get("/books/{book_title}")
 async def read_book(book_title: str):
@@ -64,3 +73,4 @@ async def delete_book(book_title : str):
         raise HTTPException(status_code=404, detail = f'Book Not Found')
     except AttributeError as e:
         raise HTTPException(status_code=400, detail = f'Bad Request Format: {str(e)}')
+    
