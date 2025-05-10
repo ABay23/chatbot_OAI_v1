@@ -10,12 +10,7 @@ client =  OpenAI(api_key= api_key)
 
 chat_log = []
 
-while True:
-    user_input = input("How may I help you today? or type 'quit' to leave chat.")
-    
-    if user_input.casefold() == 'quit':
-        break
-    
+def get_chatbot_response(user_input : str)-> str:    
     chat_log.append({'role': 'user', 'content': user_input})
 
     response = client.chat.completions.create(
@@ -25,5 +20,5 @@ while True:
     )
     bot_response = response.choices[0].message.content
     chat_log.append({'role': 'assistant', 'content': bot_response})
-    print(bot_response)
+    return bot_response
     
