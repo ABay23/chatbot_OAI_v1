@@ -11,9 +11,9 @@ templates = Jinja2Templates(directory='app/templates')
 
 @app.get('/', response_class=HTMLResponse)
 async def chat_page(request: Request):
-    return templates.TemplateResponse("layout.html",{"request": request})
+    return templates.TemplateResponse("home.html",{"request": request})
 
-@app.post('/')
-async def chat(user_input: Annotated[str, Form()]):
-    bot_response = get_chatbot_response(user_input)
-    return {'response': bot_response}
+@app.post('/', response_class=HTMLResponse)
+async def chat(request: Request, user_input: Annotated[str, Form()]):
+    bot_response = get_chatbot_response(request, user_input)
+    return bot_response
