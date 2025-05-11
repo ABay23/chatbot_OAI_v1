@@ -4,10 +4,14 @@ from fastapi import FastAPI, Form, WebSocket
 from typing import Annotated
 from services.chatbot import get_chatbot_response, activate_websocket
 from fastapi import Request
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
 templates = Jinja2Templates(directory='app/templates')
+
+'''static files for JS script'''
+app.mount("/static", StaticFiles(directory='app/static'), name='static')
 
 @app.get('/', response_class=HTMLResponse)
 async def chat_page(request: Request):
