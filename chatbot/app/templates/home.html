@@ -2,25 +2,24 @@
 
 <div class="container mt-5">
 	<h3>Add input to chat with Alejandro's personal Chatbot</h3>
-	<form action="/" method="POST">
-		<div>
-			<textarea
-				name="user_input"
-				class="form-control"
-				placeholder="Add input here"
-				rows="3"
-			></textarea>
-			<button class="btn btn-primary mt-1" type="submit">Send</button>
-		</div>
-	</form>
+
 	<div>
 		<div class="card text-center mt-3">
 			<div class="card-header">Chat History:</div>
-			<div class="card-body">
-				{% for response in chat_responses %}
+			<div class="card-body" id="chatHistory">
+				<!-- {% for response in chat_responses %}
 				<div>- {{ response}}</div>
-				{% endfor %}
+				{% endfor %} -->
 			</div>
 		</div>
 	</div>
+	<div class="container" id="footer">
+		<div class="input-group mb-3">
+			<input class="form-control" placeholder="Add input here" id="userInput" />
+			<button class="btn btn-outline-primary" type="button" id="sendButton">
+				Send
+			</button>
+		</div>
+	</div>
 </div>
+<script src="/chatbot/app/templates/main_scrip.js"></script>

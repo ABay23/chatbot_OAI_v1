@@ -6,6 +6,7 @@ import os
 
 templates = Jinja2Templates(directory='app/templates')
 
+
 load_dotenv()
 
 api_key = os.getenv('OPEN_AI_KEY')
@@ -17,6 +18,16 @@ chat_log = [{'role': 'system', 'content': 'You are a python tutr AI, completely 
         'Helping create in real life a path of learning for users to be able to master Python and create aplications'
         }]
 chat_responses = []
+
+async def activate_websocket(websocket):
+    await websocket.accept()
+    while True:
+        try:
+            user_input = await websocket.receive_text()
+            await websocket.send_text(f"Echo: {user_input}")
+        except Exception as e:
+            print(f"WebSocket closed: {e}")
+            break
 
 def get_chatbot_response(request, user_input : str)-> str:    
     chat_log.append({'role': 'user', 'content': user_input})
