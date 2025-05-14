@@ -47,4 +47,9 @@ async def get_books_author_and_Category(book_author: str, book_category: str):
 '''POST Request'''
 @app.post('/books/create_book')
 async def create_new_book(new_book = Body()):
-    BOOKS.append(new_book)
+    try:
+        BOOKS.append(new_book)
+        return {'message': f'New Book Added {new_book}'}
+        
+    except AttributeError as e:
+        raise HTTPException(status_code=400, detail= f'Bad request Format {str(e)}')
