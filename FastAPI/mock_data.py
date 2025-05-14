@@ -82,3 +82,45 @@ class Book:
         self.author = author
         self.description = description
         self.rating = rating
+        
+BOOKS = [
+    Book(1, "The Hobbit", "J.R.R. Tolkien", "A fantasy adventure about Bilbo Baggins.", 5),
+    Book(2, "The Fellowship of the Ring", "J.R.R. Tolkien", "First part of the epic trilogy.", 5),
+    Book(3, "The Two Towers", "J.R.R. Tolkien", "Middle chapter of the Lord of the Rings.", 5),
+    Book(4, "The Return of the King", "J.R.R. Tolkien", "Final battle for Middle-earth.", 5),
+    Book(5, "The Silmarillion", "J.R.R. Tolkien", "Mythic prequel to the Lord of the Rings.", 4),
+    
+    Book(6, "The Shining", "Stephen King", "A haunted hotel drives a man insane.", 5),
+    Book(7, "It", "Stephen King", "A shape-shifting monster terrorizes a town.", 4),
+    Book(8, "Misery", "Stephen King", "A fan holds her favorite author hostage.", 5),
+    Book(9, "Carrie", "Stephen King", "A bullied girl develops telekinetic powers.", 4),
+    Book(10, "Doctor Sleep", "Stephen King", "Sequel to The Shining, following Danny.", 4),
+
+    Book(11, "1984", "George Orwell", "A dystopian society under total surveillance.", 5),
+    Book(12, "Animal Farm", "George Orwell", "A satirical tale of revolution and power.", 4),
+    
+    Book(13, "Dune", "Frank Herbert", "A sci-fi epic about politics and prophecy.", 5),
+    Book(14, "Dune Messiah", "Frank Herbert", "The continued struggle of Paul Atreides.", 4),
+    
+    Book(15, "Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "The start of a magical journey.", 5),
+    Book(16, "Harry Potter and the Chamber of Secrets", "J.K. Rowling", "Mystery and danger at Hogwarts.", 5),
+    Book(17, "Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", "A fugitive on the loose.", 5),
+    Book(18, "Harry Potter and the Goblet of Fire", "J.K. Rowling", "Triwizard Tournament and dark revelations.", 4),
+
+    Book(19, "A Game of Thrones", "George R.R. Martin", "Noble families battle for the throne.", 5),
+    Book(20, "A Clash of Kings", "George R.R. Martin", "The war of five kings begins.", 4),
+    Book(21, "A Storm of Swords", "George R.R. Martin", "Betrayals and bloody battles.", 5),
+
+    Book(22, "Brave New World", "Aldous Huxley", "A genetically engineered society.", 4),
+    Book(23, "Fahrenheit 451", "Ray Bradbury", "Books are outlawed and burned.", 4),
+    
+    Book(24, "The Martian", "Andy Weir", "A stranded astronaut survives on Mars.", 5),
+    Book(25, "Project Hail Mary", "Andy Weir", "A lone astronaut must save Earth.", 4),
+
+    Book(26, "The Alchemist", "Paulo Coelho", "A boy searches for his personal legend.", 4),
+    Book(27, "The Da Vinci Code", "Dan Brown", "A conspiracy hidden in religious symbols.", 4),
+    Book(28, "Angels & Demons", "Dan Brown", "A race against time and secret societies.", 4),
+
+    Book(29, "The Road", "Cormac McCarthy", "A bleak journey of father and son.", 5),
+    Book(30, "The Power of Now", "Eckhart Tolle", "A spiritual guide to living in the present.", 4),
+]
