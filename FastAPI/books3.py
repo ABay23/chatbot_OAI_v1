@@ -53,3 +53,16 @@ async def create_new_book(new_book = Body()):
         
     except AttributeError as e:
         raise HTTPException(status_code=400, detail= f'Bad request Format {str(e)}')
+    
+'''PUT Request'''
+@app.put('/books/update_book')
+async def update_book(updated_book = Body()):
+    try:
+        for i in range(len(BOOKS)):
+            if BOOKS[i].get('title').casefold() == updated_book.get('title').casefold():
+                BOOKS[i] = updated_book
+                return {'Message': f'Book updated to {updated_book}'}
+        
+        raise HTTPException(status_code=404, detail= f'Book title Not found')
+    except AttributeError as e:
+        raise HTTPException(status_code=400, detail= f'Format error on book update: {str(e)}')
