@@ -1,5 +1,5 @@
 '''Books ans CRUD '''
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Body
 from mock_data import BOOKS
 
 app = FastAPI()
@@ -43,3 +43,8 @@ async def get_books_author_and_Category(book_author: str, book_category: str):
         return books_return
     except ValueError as e:
         raise HTTPException(status_code=404, detail= f'No match found: {str(e)}')
+    
+'''POST Request'''
+@app.post('/books/create_book')
+async def create_new_book(new_book = Body()):
+    BOOKS.append(new_book)
