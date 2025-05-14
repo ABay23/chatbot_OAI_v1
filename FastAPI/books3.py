@@ -66,3 +66,15 @@ async def update_book(updated_book = Body()):
         raise HTTPException(status_code=404, detail= f'Book title Not found')
     except AttributeError as e:
         raise HTTPException(status_code=400, detail= f'Format error on book update: {str(e)}')
+    
+'''DELETE Request'''
+@app.delete('/books/delete_book/{book_title}')
+async def delete_book(book_title : str):
+    try:
+        for i in range(len(BOOKS)):
+            if BOOKS[i].get('title').casefold() == book_title.casefold():
+                BOOKS.pop(i)
+                return {'message': f'Book successfully deleted'}
+        raise HTTPException(status_code=400, detail= f'Book title not found!')
+    except AttributeError as e:
+        raise HTTPException(status_code=404, detail= f'Wrong Format {str(e)}')
