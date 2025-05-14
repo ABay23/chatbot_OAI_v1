@@ -75,6 +75,7 @@ async def delete_book(book_title : str):
             if BOOKS[i].get('title').casefold() == book_title.casefold():
                 BOOKS.pop(i)
                 return {'message': f'Book successfully deleted'}
+            
         raise HTTPException(status_code=400, detail= f'Book title not found!')
     except AttributeError as e:
         raise HTTPException(status_code=404, detail= f'Wrong Format {str(e)}')
