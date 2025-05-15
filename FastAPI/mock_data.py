@@ -1,5 +1,6 @@
 """Mock Data for testing purposes"""
 from typing import List, Dict
+from pydantic import BaseModel
 '''
 BOOKS: List[Dict[str, str]] = [
     {"title": "The Hobbit", "author": "J.R.R. Tolkien", "category": "Fantasy"},
@@ -82,6 +83,15 @@ class Book:
         self.author = author
         self.description = description
         self.rating = rating
+        
+class BookRequest(BaseModel):
+    id: int
+    title: str
+    author: str
+    description: str
+    rating: int
+    
+    
         
 BOOKS = [
     Book(1, "The Hobbit", "J.R.R. Tolkien", "A fantasy adventure about Bilbo Baggins.", 5),
