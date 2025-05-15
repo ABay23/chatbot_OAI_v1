@@ -17,9 +17,28 @@ async def create_book(book_request: BookRequest):
         raise HTTPException(status_code=400, detail= f'Bad Request {str(e)}')
     
 def find_book_id(book : Book):
-    if len(BOOKS) > 0: 
-        book.id = BOOKS[-1].id +1
-    else:
-        book.id = 1
-        
+    book.id = 1 if len(BOOKS) == 0 else BOOKS[-1].id + 1
+    
     return book
+
+# def find_book_id(book: Book):
+#     book.id = 1 if len(BOOKS) == 0 else BOOKS[-1].id + 1
+#     return book
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    # if len(BOOKS) > 0: 
+    #     book.id = BOOKS[-1].id +1
+    # else:
+    #     book.id = 1
+        
+    # return book
