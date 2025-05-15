@@ -11,7 +11,15 @@ async def get_all_books():
 async def create_book(book_request: BookRequest):
     try:
         new_book = Book(**book_request.model_dump())
-        BOOKS.append(new_book)
+        BOOKS.append(find_book_id(new_book))
         return {'message': 'New book Created!'}
     except AttributeError as e:
         raise HTTPException(status_code=400, detail= f'Bad Request {str(e)}')
+    
+def find_book_id(book : Book):
+    if len(BOOKS) > 0: 
+        book.id = BOOKS[-1].id +1
+    else:
+        book.id = 1
+        
+    return book
