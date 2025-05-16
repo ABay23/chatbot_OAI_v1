@@ -56,7 +56,7 @@ async def update_book( book : BookRequest):
             return {'message': f'Book updated to {book}'}
         
 '''Delete Book'''
-@app.delete('/books/delete-book')
+@app.delete('/books/delete-book', status_code=status.HTTP_204_NO_CONTENT)
 async def delete_book(book : BookRequest):
     for i in range(len(BOOKS)):
         if book.id == BOOKS[i].id:
