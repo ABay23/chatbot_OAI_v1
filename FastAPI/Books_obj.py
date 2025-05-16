@@ -53,23 +53,12 @@ async def update_book( book : BookRequest):
         if book.id == BOOKS[i].id:
             BOOKS[i] = book
             return {'message': f'Book updated to {book}'}
-    
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    # if len(BOOKS) > 0: 
-    #     book.id = BOOKS[-1].id +1
-    # else:
-    #     book.id = 1
         
-    # return book
+'''Delete Book'''
+@app.delete('/books/delete-book')
+async def delete_book(book : BookRequest):
+    for i in range(len(BOOKS)):
+        if book.id == BOOKS[i].id:
+            deleted_book = BOOKS.pop(i)
+            return {'message': f'Book {deleted_book.title} Successfully deleted'}
+    
