@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Body, HTTPException
+from starlette import status
 from mock_data import BOOKS, Book, BookRequest
 
 app = FastAPI()
@@ -20,7 +21,7 @@ async def get_book_by_id(book_id : int):
         raise HTTPException(status_code=404,  detail= f'Category not found')
     
 '''FEtch Books by Rating'''
-@app.get('/books/')
+@app.get('/books/', status_code=status.HTTP_200_OK)
 async def books_by_rating(rating : int):
     try:
         rated_books = []
