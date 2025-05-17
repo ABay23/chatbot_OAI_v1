@@ -1,2 +1,9 @@
 fastapienv/
 .env
+
+# Ignore SQLite database file
+*.db
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
