@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends
 import models
+from models import Todos
 from database import engine, SessionLocal
 from typing import Annotated
 from sqlalchemy.orm import Session
@@ -18,4 +19,4 @@ def get_db():
 '''THis is the get all query first test'''
 @app.get('/')
 async def read_all(db: Annotated[Session, Depends(get_db)]):
-    pass
+    return db.query(Todos).all()
