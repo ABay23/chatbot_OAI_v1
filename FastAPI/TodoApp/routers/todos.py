@@ -1,20 +1,13 @@
-from curses.ascii import HT
-import stat
-from fastapi import FastAPI, Depends, HTTPException, Path
+from fastapi import APIRouter, Depends, HTTPException, Path
 from pydantic import BaseModel, Field
-import models
 from models import Todos
-from database import engine, SessionLocal
+from database import SessionLocal
 from typing import Annotated
 from sqlalchemy.orm import Session
 from starlette import status
-from routers import auth, todos
 
-app = FastAPI()
+router = APIRouter()
 
-models.Base.metadata.create_all(bind=engine)
-
-app.include_router(auth.router)
 
 def get_db():
     db = SessionLocal()
@@ -33,12 +26,12 @@ class TodoRequest(BaseModel):
 
         
 '''THis is the get all query first test'''
-@app.get('/')
+@router.get('/')
 async def read_all(db: db_dependency):
     return db.query(Todos).all()
 
 '''Get todo by ID'''
-@app.get('/todo/{todo_id}', status_code=status.HTTP_200_OK)
+@router.get('/todo/{todo_id}', status_code=status.HTTP_200_OK)
 async def read_todo(db: db_dependency, todo_id : int = Path(gt=0)):
     todo_model = db.query(Todos).filter(Todos.id == todo_id).first()
     if todo_model is not None:
@@ -46,7 +39,7 @@ async def read_todo(db: db_dependency, todo_id : int = Path(gt=0)):
     raise HTTPException(status_code=404, detail='Todo Not found')
 
 '''POST on the new DB setting'''
-@app.post('/todo', status_code=status.HTTP_201_CREATED)
+@router.post('/todo', status_code=status.HTTP_201_CREATED)
 async def create_todo(
     db: db_dependency, 
     todo_request: TodoRequest
@@ -58,7 +51,7 @@ async def create_todo(
     return {'message': f'New Todo Created!!!'}
 
 '''PUT Update a todo'''
-@app.put('/todo/{todo_id}')
+@router.put('/todo/{todo_id}')
 async def update_todo(
     db : db_dependency, 
     todo_request : TodoRequest,
@@ -80,7 +73,7 @@ async def update_todo(
     return {'message': f'The task: {todo_update.title} was Updated!'}
 
 '''Adding Delete '''
-@app.delete('/todo/{todo_id}')
+@router.delete('/todo/{todo_id}')
 async def delete_todo(
     db: db_dependency,
     todo_id : int = Path(gt=0)
