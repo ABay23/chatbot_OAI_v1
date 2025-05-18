@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 import models
 from models import Todos
 from database import engine, SessionLocal
@@ -27,4 +27,6 @@ async def read_all(db: db_dependency):
 @app.get('/todo/{tpfp_id}')
 async def read_todo(db: db_dependency, todo_id : int):
     todo_model = db.query(Todos).filter(Todos.id == todo_id).first()
-    return todo_model
+    if todo_model is not None:
+        return todo_model
+    raise HTTPException(status_code=404, detail='Todo Not found')
