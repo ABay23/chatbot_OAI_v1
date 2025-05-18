@@ -16,7 +16,15 @@ def get_db():
     finally:
         db.close()
         
+db_dependency = Annotated[Session, Depends(get_db)]
+        
 '''THis is the get all query first test'''
 @app.get('/')
-async def read_all(db: Annotated[Session, Depends(get_db)]):
+async def read_all(db: db_dependency):
     return db.query(Todos).all()
+
+'''Get todo by ID'''
+@app.get('/todo/{tpfp_id}')
+async def read_todo(db: db_dependency, todo_id : int):
+    todo_model = db.query(Todos).filter(Todos.id == todo_id).first()
+    return todo_model
