@@ -55,7 +55,12 @@ async def create_todo(
 
 '''PUT Update a todo'''
 @app.put('/todo/{todo_id}')
-async def update_todo(db : db_dependency, todo_id : int, todo_request : TodoRequest ):
+async def update_todo(
+    db : db_dependency, 
+    todo_request : TodoRequest,
+    todo_id : int = Path(gt=0) 
+    ):
+    
     todo_update = db.query(Todos).filter(Todos.id == todo_id).first()
     if todo_update is None:
         raise HTTPException(status_code=404, detail='Todo not found')
@@ -67,4 +72,6 @@ async def update_todo(db : db_dependency, todo_id : int, todo_request : TodoRequ
     
     db.add(todo_update)
     db.commit()
+    
+    return {'message': f'The task: {todo_update.title} was Updated!'}
     
