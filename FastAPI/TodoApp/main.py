@@ -4,6 +4,7 @@ from models import Todos
 from database import engine, SessionLocal
 from typing import Annotated
 from sqlalchemy.orm import Session
+from starlette import status
 
 app = FastAPI()
 
@@ -24,7 +25,7 @@ async def read_all(db: db_dependency):
     return db.query(Todos).all()
 
 '''Get todo by ID'''
-@app.get('/todo/{tpfp_id}')
+@app.get('/todo/{todo_id}', status_code=status.HTTP_200_OK)
 async def read_todo(db: db_dependency, todo_id : int):
     todo_model = db.query(Todos).filter(Todos.id == todo_id).first()
     if todo_model is not None:
