@@ -1,3 +1,4 @@
+from curses.ascii import HT
 import stat
 from fastapi import FastAPI, Depends, HTTPException, Path
 from pydantic import BaseModel, Field
@@ -74,4 +75,17 @@ async def update_todo(
     db.commit()
     
     return {'message': f'The task: {todo_update.title} was Updated!'}
+
+'''Adding Delete '''
+@app.delete('/todo/{todo_id}')
+async def delete_todo(
+    db: db_dependency,
+    todo_id : int = Path(gt=0)
+):
+    todo_content = db.query(Todos).filter(Todos.id == todo_id).first()
+    if not todo_content:
+        raise HTTPException(status_code=404, detail='Todo not found')
     
+    db.delete(todo_content)
+    db.commit()
+    return {'message': f'The task ({todo_content.title}) was deleted!'}
