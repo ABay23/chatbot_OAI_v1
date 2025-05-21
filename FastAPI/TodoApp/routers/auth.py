@@ -1,3 +1,4 @@
+import os
 from typing import Annotated
 from fastapi import Depends, FastAPI, APIRouter
 from pydantic import BaseModel
@@ -11,6 +12,9 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 # app = FastAPI()  #* We don't use FastAPI for endpoints, auth endpoints are created usng router
 router = APIRouter()
+
+jwt_key = os.getenv('JWT_SECRET_KEY')
+algo = os.getenv('JWT_ALGORYTHM')
 
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
