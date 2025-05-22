@@ -14,7 +14,10 @@ from jose import JWTError, jwt
 
 
 # app = FastAPI()  #* We don't use FastAPI for endpoints, auth endpoints are created usng router
-router = APIRouter()
+router = APIRouter(
+    prefix='/auth',
+    tags=['auth']
+)
 
 load_dotenv()
 jwt_s_key = os.getenv('JWT_SECRET_KEY')
@@ -76,7 +79,7 @@ def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
     
 
 '''Create User'''
-@router.post('/auth', status_code=status.HTTP_201_CREATED)
+@router.post('/', status_code=status.HTTP_201_CREATED)
 async def create_user(
     db : db_dependency,
     create_user_request : CreateUserRequest):
