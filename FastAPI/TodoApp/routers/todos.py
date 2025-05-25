@@ -30,16 +30,20 @@ class TodoRequest(BaseModel):
         
 '''THis is the get all query first test'''
 @router.get('/')
-async def read_all(db: db_dependency):
-    return db.query(Todos).all()
+async def read_all(user: user_dependency, db: db_dependency):
+    return db.query(Todos).filter(Todos.owner_id == user.get('id')).all()
 
 '''Get todo by ID'''
 @router.get('/todo/{todo_id}', status_code=status.HTTP_200_OK)
-async def read_todo(db: db_dependency, todo_id : int = Path(gt=0)):
-    todo_model = db.query(Todos).filter(Todos.id == todo_id).first()
+async def read_todo(user: user_dependency , db: db_dependency, todo_id : int = Path(gt=0)):
+    if user is None:
+        if user is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Not Authenticated')
+        
+    todo_model = db.query(Todos).filter(Todos.id == todo_id).filter(Todos.owner_id == user.get('id')).first()
     if todo_model is not None:
         return todo_model
-    raise HTTPException(status_code=404, detail='Todo Not found')
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Todo Not found')
 
 '''POST on the new DB setting'''
 @router.post('/todo', status_code=status.HTTP_201_CREATED)
