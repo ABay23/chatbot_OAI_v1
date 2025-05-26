@@ -87,13 +87,17 @@ async def update_todo(
 '''Adding Delete '''
 @router.delete('/todo/{todo_id}')
 async def delete_todo(
+    user: user_dependency,
     db: db_dependency,
     todo_id : int = Path(gt=0)
 ):
-    todo_content = db.query(Todos).filter(Todos.id == todo_id).first()
-    if not todo_content:
-        raise HTTPException(status_code=404, detail='Todo not found')
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Not Authenticated')
+    todo_content = db.query(Todos).filter(Todos.id == todo_id).filter(Todos.owner_id == user.get('id')).first()
+    if todo_content is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Todo not found')
     
-    db.delete(todo_content)
+    db.query(Todos).filter(Todos.id == todo_id).filter(Todos.owner_id == user.get('id')).delete()
+    # db.delete(todo_content)
     db.commit()
     return {'message': f'The task ({todo_content.title}) was deleted!'}

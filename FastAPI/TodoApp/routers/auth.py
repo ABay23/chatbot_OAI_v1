@@ -57,9 +57,9 @@ def authenticate_user(username: str, password: str, db):
         return False
     return user_validation
 
-def create_access_token(username: str, user_id: int, expires_delta: timedelta):
+def create_access_token(username: str, user_id: int, role: str, expires_delta: timedelta):
     
-    encode = {'sub': username, 'id': user_id}
+    encode = {'sub': username, 'id': user_id, 'role': role}
     expires = datetime.now(timezone.utc) + expires_delta
     encode.update({'exp': expires})
     return jwt.encode(encode, jwt_s_key, algorithm=algo_enc)
@@ -106,7 +106,7 @@ async def login_for_access_token(
     if not user_auth:
         return {'message': 'User not found!'}
     
-    token = create_access_token(user_auth.username, user_auth.id, timedelta(minutes=20))
+    token = create_access_token(user_auth.username, user_auth.id, user_auth.role, timedelta(minutes=20))
     
     return {'access_token': token, 'token_type': 'bearer'}
 # {'message':f'Welcome {form_data.username}' }
