@@ -1,8 +1,7 @@
-from turtle import st
 from fastapi import APIRouter, Depends, HTTPException, Path
 from pydantic import BaseModel, Field
 from TodoApp.models import Todos
-from TodoApp.database import SessionLocal
+from ..database import get_db
 from typing import Annotated, Dict
 from sqlalchemy.orm import Session
 from starlette import status
@@ -10,13 +9,14 @@ from .auth import get_current_user
 
 router = APIRouter()
 
-
-def get_db():
+'''def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+    It was moved to database.py to make it more modular for testing
+'''
         
 db_dependency = Annotated[Session, Depends(get_db)]
 user_dependency = Annotated[dict, Depends(get_current_user)]
