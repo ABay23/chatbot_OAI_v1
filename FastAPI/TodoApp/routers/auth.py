@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from typing import Annotated
 from fastapi import Depends, FastAPI, APIRouter, HTTPException
 from pydantic import BaseModel
-from database import SessionLocal
-from models import Users
+from TodoApp.database import SessionLocal
+from TodoApp.models import Users
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 from starlette import status

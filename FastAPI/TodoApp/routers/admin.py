@@ -1,8 +1,8 @@
 from turtle import st
 from fastapi import APIRouter, Depends, HTTPException, Path
 from pydantic import BaseModel, Field
-from models import Todos
-from database import SessionLocal
+from TodoApp.models import Todos
+from TodoApp.database import SessionLocal
 from typing import Annotated, Dict
 from sqlalchemy.orm import Session
 from starlette import status
