@@ -8,6 +8,8 @@ from ..routers.auth import get_db, get_current_user
 from ..main import app
 from fastapi.testclient import TestClient
 from fastapi import status
+import pytest
+from ..models import Todos
 
 #* Load environment variables
 load_dotenv()
@@ -43,6 +45,16 @@ app.dependency_overrides[get_db] = override_get_db
 app.dependency_overrides[get_current_user] = override_get_current_user
 
 client = TestClient(app)
+
+@pytest.fixture
+def test_todo():
+    todo = Todos(
+        title = 'Code fast!',
+        descriprtion = 'Get better every day!',
+        priority = 5,
+        complete = False,
+        owner_id = 1,
+    )
 
 def test_read_all_authenticated():
     response = client.get('/')
