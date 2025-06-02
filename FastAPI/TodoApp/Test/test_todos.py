@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.pool import StaticPool
 from sqlalchemy.orm import sessionmaker
 from ..database import Base
@@ -48,15 +48,33 @@ client = TestClient(app)
 
 @pytest.fixture
 def test_todo():
+    db = TestingSessionLocal()
+    db.query(Todos).delete()
+    db.commit()
+    
     todo = Todos(
         title = 'Code fast!',
-        descriprtion = 'Get better every day!',
+        description = 'Get better every day!',
         priority = 5,
         complete = False,
         owner_id = 1,
     )
+    
+    db.add(todo)
+    db.commit()
+    yield todo
+    with engine.connect() as connection:
+        connection.execute(text("DELETE FROM todos;"))
+        connection.commit()
 
-def test_read_all_authenticated():
+def test_read_all_authenticated(test_todo):
     response = client.get('/')
     assert response.status_code == status.HTTP_200_OK
+    assert response.json() == [{
+        'complete': False,
+        'description': 'New Update',
+        'id': 1,
+        'owner_id': 1,
+        'priority': 1,
+        'title': 'Delete DB',}]
 
